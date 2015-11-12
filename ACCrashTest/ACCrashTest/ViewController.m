@@ -42,7 +42,8 @@ typedef NS_ENUM(NSUInteger, CrashType) {
 }
 
 - (void)outOfBounds {
-    
+    NSArray *strings = @[@"a", @"b"];
+    NSString *c = strings[2];
 }
 
 - (void)memoryLeak {
