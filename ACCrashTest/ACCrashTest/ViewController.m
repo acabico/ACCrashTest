@@ -54,7 +54,8 @@ typedef NS_ENUM(NSUInteger, CrashType) {
 }
 
 - (void)assertionFailure {
-    
+    int number = 6;
+    NSAssert(number == 1, @"number must equal 1");
 }
 
 - (void)unrecognizedSelector {
