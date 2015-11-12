@@ -8,7 +8,18 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+typedef NS_ENUM(NSUInteger, CrashType) {
+    CrashTypeInfiniteLoop,
+    CrashTypeOutOfBounds,
+    CrashTypeMemoryLeak,
+    CrashTypeRetainCycle,
+    CrashTypeAssertionFailure,
+    CrashTypeUnrecognizedSelector
+};
+
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *crashListTableView;
 
 @end
 
@@ -22,6 +33,73 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Methods
+
+- (void)infiniteLoop {
+    
+}
+
+- (void)outOfBounds {
+    
+}
+
+- (void)memoryLeak {
+    
+}
+
+- (void)retainCycle {
+    
+}
+
+- (void)assertionFailure {
+    
+}
+
+- (void)unrecognizedSelector {
+    
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return sizeof(CrashType);
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
+    switch (indexPath.row) {
+        case CrashTypeInfiniteLoop: cell.textLabel.text = @"Infinite Loop"; break;
+        case CrashTypeOutOfBounds: cell.textLabel.text = @"Out of Bounds"; break;
+        case CrashTypeMemoryLeak: cell.textLabel.text = @"Memory Leak"; break;
+        case CrashTypeRetainCycle: cell.textLabel.text = @"Retain Cycle"; break;
+        case CrashTypeAssertionFailure: cell.textLabel.text = @"Assertion Failure"; break;
+        case CrashTypeUnrecognizedSelector: cell.textLabel.text = @"Unrecognized Selector"; break;
+        default: cell.textLabel.text = @"Undefined Type"; break;
+    }
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case CrashTypeInfiniteLoop: [self infiniteLoop]; break;
+        case CrashTypeOutOfBounds: [self outOfBounds]; break;
+        case CrashTypeMemoryLeak: [self memoryLeak]; break;
+        case CrashTypeRetainCycle: [self retainCycle]; break;
+        case CrashTypeAssertionFailure: [self assertionFailure]; break;
+        case CrashTypeUnrecognizedSelector: [self unrecognizedSelector]; break;
+        default: break;
+    }
 }
 
 @end
